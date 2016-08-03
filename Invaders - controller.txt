@@ -1,0 +1,61 @@
+script Invaders game - controller
+
+function main ()      
+var Delay := 100      
+game → set score(0)      
+var x := 2      
+var y := 4      
+game → start countdown(20000)      
+led → plot(x, y)      
+var alienX := math → random(5)      
+var alienY := math → random(2)      
+led → plot(alienX, alienY)      
+while game → current time > 0 do       
+var valueLeft := pins → digital read pin(P8)      
+var valueRight := pins → digital read pin(P16)      
+var vaueFire := pins → digital read pin(P15)      
+if valueLeft > 0 then       
+led → unplot(x, y)      
+x := x - 1      
+if x < 0 then       
+x := 0      
+else add code here end if       
+led → plot(x, y)      
+basic → pause(Delay)      
+else add code here end if       
+if valueRight > 0 then       
+led → unplot(x, y)      
+x := x + 1      
+if x > 4 then       
+x := 4      
+else add code here end if       
+led → plot(x, y)      
+basic → pause(Delay)      
+else add code here end if       
+if vaueFire > 0 then       
+for 0 ≤ i < 5 do       
+led → plot(x, y - i)      
+if i = alienY then       
+game → set score(game → score + 1)      
+music → play tone(440, 100)      
+alienX := math → random(5)      
+alienY := math → random(2)      
+led → plot(alienX, alienY)      
+basic → pause(Delay)      
+else add code here end if       
+basic → pause(Delay)      
+led → unplot(x, y - i)      
+end for       
+led → plot(x, y)      
+else add code here end if       
+add code here      
+end while       
+basic → forever do       
+if game → current time = 0 then       
+var valueUp := pins → digital read pin(P12)      
+if valueUp > 0 then       
+control → reset      
+else add code here end if       
+else add code here end if       
+end       
+end function 
