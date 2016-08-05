@@ -1,0 +1,66 @@
+script Invaders
+function main ()      
+◳ Delay := 100      
+game → set score(0)      
+game → start countdown(20000)      
+// Plot gun
+◳ x := 2      
+◳ y := 4      
+led → plot(◳ x, ◳ y)      
+// Start of programme
+◳ AlienX := math → random(5)      
+◳ AlienY := math → random(2)      
+led → plot(◳ AlienX, ◳ AlienY)      
+▷ readButtonA      
+▷ readButtonB     
+▷ readButtonFire      
+if game → current time = 0 then       
+	game → show score      
+	input → on button pressed(A+B) do       
+		control → reset  
+	end       
+else add code here end if       
+end function
+
+———————————————————————————
+function readButtonA()      
+input → on button pressed(A) do       
+led → unplot(◳ x, ◳ y)      
+◳ x := ◳ x - 1      
+if ◳ x < 0 then       
+	◳ x := 0      
+else add code here end if       
+led → plot(◳ x, ◳ y)      
+end       
+end function
+
+————————————————————————————
+function readButtonB()      
+input → on button pressed(B) do       
+led → unplot(◳ x, ◳ y)      
+◳ x := ◳ x + 1      
+if ◳ x > 4 then       
+	◳ x := 4      
+else add code here end if       
+led → plot(◳ x, ◳ y)      
+end       
+end function
+
+—————————————————————————————
+function readButtonFire()      
+input → on button pressed(A+B) do       
+for 0 ≤ i < 5 do       
+	led → plot(◳ x, ◳ y - i)      
+	if i = ◳ AlienY then       
+		game → set score(game → score + 1)      
+		var AlienX := math → random(5)      
+		var AlienY := math → random(2)      
+		led → plot(AlienX, AlienY)      
+		◳ Delay := ◳ Delay - 1      
+	else add code here end if       
+	basic → pause(◳ Delay)      
+	led → unplot(◳ x, ◳ y - i)      
+end for       
+	led → plot(◳ x, ◳ y)      
+end       
+end function
